@@ -1,0 +1,47 @@
+﻿<Window x:Class="NetworkService.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetworkService"
+        xmlns:views="clr-namespace:NetworkService.Views"
+        xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="515" Width="800" Background="#FFF0F0F0" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:NetworkEntitiesViewModel}">
+            <views:NetworkEntitiesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NetworkDisplayViewModel}">
+            <views:NetworkDisplayView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:MeasurmentGraphViewModel}">
+            <views:MeasurmentGraphView/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="5">
+            <Menu DockPanel.Dock="Top" Background="#FF61E5FC">
+                <MenuItem Header="Network Entities" Command="{Binding NavCommand}"
+                          CommandParameter="entity"/>
+                <MenuItem Header="Network Display"  Command="{Binding NavCommand}"
+                          CommandParameter="display"/>
+                <MenuItem Header="Measurment Graph" Command="{Binding NavCommand}"
+                          CommandParameter="graph"/>
+                <MenuItem Margin="410,0,0,0" Header="Help" Command="{Binding Help}"
+                          CommandParameter="graph"/>
+            </Menu>
+        </DockPanel>
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}" Margin="0,0,-0.4,-0.4"/>
+        </Grid>
+    </Grid>
+</Window>

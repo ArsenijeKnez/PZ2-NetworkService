@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="NetworkService.Views.NetworkEntitiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+             xmlns:data="clr-namespace:NetworkService.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#F0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="280"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#E0E0E0">
+            <Label Content="Pretraga:"/>
+            <RadioButton Content="Naziv" IsChecked="{Binding IsSearchByName}" Margin="5"/>
+            <RadioButton Content="Tip" IsChecked="{Binding IsSearchByType}" Margin="5"/>
+            <TextBox Width="200" Text="{Binding NameSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" ToolTip="Pretraga"/>
+        </StackPanel>
+        <!-- Entity Table -->
+        <ListView Grid.Row="2" ItemsSource="{Binding SearcedMeters}" SelectedItem="{Binding SelectedMeter}" Background="#FFABFFF9" Margin="20">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextAlignment="Center" Text="{Binding ID}" Foreground="#333333" ToolTip="{Binding ID}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextAlignment="Left" Text="{Binding Name}" Foreground="#333333" ToolTip="{Binding Name}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Meter Type" DisplayMemberBinding="{Binding MeterType}" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextAlignment="Left" Text="{Binding MeterType}" Foreground="#333333" ToolTip="{Binding MeterType}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Measurement Value" DisplayMemberBinding="{Binding MesurmentValue}" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextAlignment="Right" Text="{Binding MesurmentValue}" Foreground="#333333" ToolTip="{Binding MesurmentValue}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="{Binding ValidationText}" HorizontalAlignment="Left" Margin="20,0" Foreground="#CC0000" Grid.Row="3"/>
+        <!-- Entity Form -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5">
+            <Label Content="ID:" Margin="5"/>
+            <TextBox Text="{Binding IDText}" Width="100" Margin="5" ToolTip="Unesite jedinstven ID" />
+            <Label Content="Naziv:" Margin="5"/>
+            <TextBox Text="{Binding NameText}" Width="100" Margin="5" ToolTip="Unesite Name" />
+            <Label Content="Tip:" Margin="5"/>
+            <ComboBox ItemsSource="{Binding MeterTypes}" SelectedItem="{Binding MeterType}" Width="100" Margin="5" ToolTip="Select Meter Type" />
+            <Button Content="Add" Command="{Binding AddCommand}" Width="40" Margin="5" Background="#007ACC" Foreground="White" ToolTip="Add new Meater" />
+            <Button Content="Delete" Command="{Binding DeleteCommand}" Margin="185,5" Width="40" Background="#CC0000" Foreground="White" ToolTip="Delete Selected Meaters" />
+        </StackPanel>
+        <Image Source="{Binding ImageSource}" Grid.Row="5" Height="50"/>
+    </Grid>
+</UserControl>
